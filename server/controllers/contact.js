@@ -5,8 +5,7 @@ let mongoose = require('mongoose');
 // create a reference to the model
 let Contact = require('../models/contact');
 
-//display contact list
-module.exports.displayContactList = (req, res, next) => {
+module.exports.displayContactList = (req,res,next) => {
     Contact.find((err, contactList) => {
         if(err)
         {
@@ -14,30 +13,28 @@ module.exports.displayContactList = (req, res, next) => {
         }
         else
         {
-            res.render('contact/list', 
-            {title: 'Company Contact', 
-            ContactList: contactList,
-            displayName: req.user ? req.user.displayName : ''});      
+            //console.log(ContactList);
+            
+            res.render('contact/list', {title: 'Business Contacts',ContactList: contactList,
+            displayName: req.user ? req.user.displayName: ''});
         }
-    });
+    }).sort({name:1, number:1, email:1});
 }
 
-
-//get add contact page
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('contact/add', {title: 'Add Contact',
-    displayName: req.user ? req.user.displayName : ''})          
+    res.render('contact/add', {title: 'Add Contact', 
+    displayName: req.user ? req.user.displayName: ''});
 }
 
-//post add contact page
 module.exports.processAddPage = (req, res, next) => {
     let newContact = Contact({
         "name": req.body.name,
         "number": req.body.number,
         "email": req.body.email,
-    });
+    
+    })
 
-    Contact.create(newContact, (err, Contact) =>{
+    Contact.create(newContact, (err,Contact) =>{
         if(err)
         {
             console.log(err);
@@ -49,7 +46,6 @@ module.exports.processAddPage = (req, res, next) => {
             res.redirect('/contact-list');
         }
     });
-
 }
 
 module.exports.displayEditPage = (req, res, next) => {
@@ -63,27 +59,24 @@ module.exports.displayEditPage = (req, res, next) => {
         }
         else
         {
-            //show the edit view
-            res.render('contact/edit', 
-            {title: 'Edit Contact', 
-            contact: contactToEdit,
-            displayName: req.user ? req.user.displayName : ''})
+            // show the edit view
+            res.render('contact/edit', {title: 'Edit Contact', contact: contactToEdit, 
+            displayName: req.user ? req.user.displayName: ''})
         }
-    });
+    })
 }
 
-//post edit page
 module.exports.processEditPage = (req, res, next) => {
-    let id = req.params.id
+    let id = req.params.id;
 
-    let updateConcat = Contact({
+    let editContact = Contact({
         "_id": id,
         "name": req.body.name,
         "number": req.body.number,
-        "email": req.body.emial,
+        "email": req.body.email,
     });
 
-    Contact.updateOne({_id: id}, updateConcat, (err) => {
+    Contact.updateOne({_id: id}, editContact, (err) => {
         if(err)
         {
             console.log(err);
@@ -91,13 +84,12 @@ module.exports.processEditPage = (req, res, next) => {
         }
         else
         {
-            // refresh the conact list
+            //refresh the contact list
             res.redirect('/contact-list');
         }
-    });
+    })
 }
 
-//post delect page
 module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;
 
@@ -109,8 +101,8 @@ module.exports.performDelete = (req, res, next) => {
         }
         else
         {
-             // refresh the contact list
-             res.redirect('/contact-list');
+            //refresh the contact list
+            res.redirect('/contact-list');
         }
-    });
+    })
 }

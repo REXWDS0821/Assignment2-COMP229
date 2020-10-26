@@ -64,7 +64,7 @@ module.exports.processLoginPage = (req,res,next) => {
             {
                 return next(err);
             }
-            return res.redirect('/home');
+            return res.redirect('/contact-list');
         });
     })(req,res,next);
 }

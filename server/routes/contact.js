@@ -1,6 +1,9 @@
-const { Router } = require('express');
+//Hao Wang, 301027664 
+
 let express = require('express');
+
 let router = express.Router();
+ 
 let mongoose = require('mongoose');
 
 let passport = require('passport');
