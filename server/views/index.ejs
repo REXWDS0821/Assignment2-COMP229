@@ -1,0 +1,24 @@
+<!--header section-->
+<%- include partials/common/header.ejs%>
+
+<!--navbar section-->
+<%- include partials/common/main_nav.ejs%>
+
+<!--main content section-->
+<% if (title == "Home") { %>
+<%- include partials/contents/home.ejs%> 
+<% } else if (title == "About") { %>
+<%- include partials/contents/about.ejs%> 
+<% } else if (title == "Products") { %>
+<%- include partials/contents/products.ejs%> 
+<% } else if (title == "Services") { %>
+<%- include partials/contents/services.ejs%> 
+<% } else if (title == "Contact") { %>
+<%- include partials/contents/contact.ejs %>
+<% } %>
+
+<!--bottom navbar section-->
+<%- include partials/common/bottom_nav.ejs%>
+
+<!--footer section-->
+<%- include partials/common/footer.ejs%>
