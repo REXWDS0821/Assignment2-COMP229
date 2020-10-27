@@ -15,7 +15,7 @@ module.exports.displayContactList = (req,res,next) => {
         {
             //console.log(ContactList);
             
-            res.render('contact/list', {title: 'Business Contacts',ContactList: contactList,
+            res.render('contact/list', {title: 'Company Contacts',ContactList: contactList,
             displayName: req.user ? req.user.displayName: ''});
         }
     }).sort({name:1, number:1, email:1});
